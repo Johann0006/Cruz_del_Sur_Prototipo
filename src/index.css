@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap');
+@import 'tailwindcss';
+
+:root {
+  --cds-navy: #002855;
+  --cds-navy-dark: #001733;
+  --cds-blue: #005a9c;
+  --cds-yellow: #FFD100;
+  --cds-yellow-hover: #e6be00;
+  --cds-red: #DA291C;
+  --cds-bg: #F4F6F9;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #172033;
+    background-color: var(--cds-bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', 'Inter', sans-serif;
+  }
+  button, a, select, input, textarea {
+    font: inherit;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+/* Reglas especiales de Impresión para Boleto Electrónico */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt !important;
+  }
+  header, footer, .print\:hidden, button:not(.print-include) {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .print-ticket {
+    box-shadow: none !important;
+    border: 1px solid #000 !important;
+    page-break-inside: avoid;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "description": "Permite a viajeros buscar rutas de Cruz del Sur, elegir asientos, ingresar datos y pagar pasajes, con confirmación y acceso a cambios y devoluciones.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
