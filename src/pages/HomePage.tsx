@@ -4,6 +4,14 @@ import { SearchWidget } from "../components/SearchWidget"
 import { CITIES, FLEET_SERVICES } from "../data/mockData"
 import { Page, SearchParams } from "../types"
 
+// Importar imágenes como assets de Vite para garantizar hashing y resolución infalible en producción (Vercel)
+import bannerHuacho from "../assets/banners/banner-1-huacho.png"
+import bannerMarcona from "../assets/banners/banner-2-marcona.png"
+import bannerCuotas from "../assets/banners/banner-3-cuotas.png"
+import bannerRutaMagica from "../assets/banners/banner-4-ruta-magica.jpg"
+import bannerConfortSuite from "../assets/banners/banner-5-confort-suite.png"
+import bannerBusTracker from "../assets/banners/banner-6-bus-tracker.png"
+
 interface HomePageProps {
   navigate: (p: Page) => void
   onStartSearch: (params: SearchParams) => void
@@ -12,7 +20,7 @@ interface HomePageProps {
 const HERO_BANNERS = [
   {
     id: "huacho",
-    image: "/banners/banner-1-huacho.png",
+    image: bannerHuacho,
     alt: "Descubre nuestra nueva ruta Huacho al Norte - Chimbote, Trujillo, Chepén, Chiclayo, Pacasmayo, Piura",
     tag: "NUEVA RUTA OFICIAL",
     title: "Huacho al Norte",
@@ -20,7 +28,7 @@ const HERO_BANNERS = [
   },
   {
     id: "marcona",
-    image: "/banners/banner-2-marcona.png",
+    image: bannerMarcona,
     alt: "Descubre nuestra nueva ruta Arequipa - Marcona",
     tag: "NUEVA RUTA OFICIAL",
     title: "Arequipa ⇄ Marcona",
@@ -28,7 +36,7 @@ const HERO_BANNERS = [
   },
   {
     id: "cuotas",
-    image: "/banners/banner-3-cuotas.png",
+    image: bannerCuotas,
     alt: "¡Compra hoy y viaja! 3 Cuotas sin intereses con Mercado Pago",
     tag: "PROMOCIÓN EXCLUSIVA",
     title: "3 Cuotas Sin Intereses",
@@ -36,7 +44,7 @@ const HERO_BANNERS = [
   },
   {
     id: "ruta-magica",
-    image: "/banners/banner-4-ruta-magica.jpg",
+    image: bannerRutaMagica,
     alt: "Atrévete a descubrir la Ruta Mágica del Sur",
     tag: "CIRCUITO TURÍSTICO",
     title: "Ruta Mágica del Sur",
@@ -44,7 +52,7 @@ const HERO_BANNERS = [
   },
   {
     id: "confort-suite",
-    image: "/banners/banner-5-confort-suite.png",
+    image: bannerConfortSuite,
     alt: "Nueva Experiencia Confort Suite G8 - 160°, 180°, TV 14'' Touchless",
     tag: "NUEVA FLOTA MARCOPOLO G8",
     title: "Confort Suite de Nueva Generación",
@@ -52,7 +60,7 @@ const HERO_BANNERS = [
   },
   {
     id: "bus-tracker",
-    image: "/banners/banner-6-bus-tracker.png",
+    image: bannerBusTracker,
     alt: "Nueva Función Bus Tracker - Sigue tu bus en tiempo real",
     tag: "TECNOLOGÍA Y SEGURIDAD",
     title: "Bus Tracker en Tiempo Real",
@@ -150,9 +158,8 @@ export function HomePage({ navigate, onStartSearch }: HomePageProps) {
           return (
             <div
               key={banner.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                isActive ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
             >
               <img
                 src={banner.image}
@@ -189,11 +196,10 @@ export function HomePage({ navigate, onStartSearch }: HomePageProps) {
               <button
                 key={banner.id}
                 onClick={() => setCurrentSlide(index)}
-                className={`transition-all duration-300 rounded-full cursor-pointer shadow-sm ${
-                  isSelected
+                className={`transition-all duration-300 rounded-full cursor-pointer shadow-sm ${isSelected
                     ? "w-8 h-2.5 bg-[#FFD100]"
                     : "w-2.5 h-2.5 bg-white/60 hover:bg-white"
-                }`}
+                  }`}
                 aria-label={`Ir al anuncio ${index + 1}: ${banner.title}`}
                 title={banner.title}
               />
@@ -335,11 +341,10 @@ export function HomePage({ navigate, onStartSearch }: HomePageProps) {
               <button
                 key={serv.name}
                 onClick={() => setSelectedFleetTab(index)}
-                className={`px-4 sm:px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer border ${
-                  selectedFleetTab === index
+                className={`px-4 sm:px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer border ${selectedFleetTab === index
                     ? "bg-[#002855] text-white border-[#002855] shadow-lg"
                     : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 <span>{serv.name}</span>
                 <span className="hidden sm:inline-block ml-2 text-[10px] text-[#FFD100]">

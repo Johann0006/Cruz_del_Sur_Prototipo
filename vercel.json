@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/dni",
+      "destination": "/api/dni"
+    },
+    {
+      "source": "/api-verificape/:path*",
+      "destination": "https://api.verificape.com/:path*"
+    },
+    {
+      "source": "/api-emailawesome/:path*",
+      "destination": "https://api.emailawesome.com/:path*"
+    },
+    {
+      "source": "/((?!assets/|banners/|api/|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

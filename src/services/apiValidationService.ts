@@ -41,8 +41,9 @@ export async function consultarDniReniec(dni: string): Promise<ReniecResult> {
     }
   }
 
-  // Intentamos por el proxy de desarrollo Vite para evitar CORS, o directamente a la API
+  // Endpoints: Vercel Serverless Function (sin CORS en producción), proxy de desarrollo Vite, o API directa
   const endpoints = [
+    `/api/dni?dni=${cleanDni}`,
     `/api-verificape/v2/dni/${cleanDni}`,
     `https://api.verificape.com/v2/dni/${cleanDni}`,
   ]
@@ -58,6 +59,12 @@ export async function consultarDniReniec(dni: string): Promise<ReniecResult> {
           Accept: "application/json",
         },
       })
+
+      // Verificar que la respuesta sea realmente JSON y no un fallback HTML de Vercel/SPA
+      const contentType = response.headers.get("content-type") || ""
+      if (!contentType.includes("application/json")) {
+        continue
+      }
 
       if (!response.ok) {
         if (response.status === 404) {
@@ -155,6 +162,11 @@ export async function validarCorreoAwesome(email: string): Promise<EmailValidati
         },
         body: JSON.stringify({ email: cleanEmail }),
       })
+
+      const contentType = response.headers.get("content-type") || ""
+      if (!contentType.includes("application/json")) {
+        continue
+      }
 
       if (!response.ok) {
         continue

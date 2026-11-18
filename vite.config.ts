@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
       minify: !emitSourcemaps,
     },
     plugins: [
-react(),
+      react(),
       tailwindcss(),
       figmaSiteConfiguration(siteConfiguration),
       figmaErrorOverlayReplay(),
@@ -39,9 +39,21 @@ react(),
       watch: {
         ignored: [
           '**/.figma/**',
-],
+        ],
       },
       proxy: {
+        '/api/dni': {
+          target: 'https://api.verificape.com',
+          changeOrigin: true,
+          rewrite: (path) => {
+            const url = new URL(path, 'http://localhost')
+            const dni = url.searchParams.get('dni') || ''
+            return `/v2/dni/${dni}`
+          },
+          headers: {
+            Authorization: 'Bearer vp_live_5935636b18f84340b20553a9cb573a23',
+          },
+        },
         '/api-verificape': {
           target: 'https://api.verificape.com',
           changeOrigin: true,
@@ -58,6 +70,18 @@ react(),
       host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
       port: parseInt(process.env.PORT || '8443'),
       proxy: {
+        '/api/dni': {
+          target: 'https://api.verificape.com',
+          changeOrigin: true,
+          rewrite: (path) => {
+            const url = new URL(path, 'http://localhost')
+            const dni = url.searchParams.get('dni') || ''
+            return `/v2/dni/${dni}`
+          },
+          headers: {
+            Authorization: 'Bearer vp_live_5935636b18f84340b20553a9cb573a23',
+          },
+        },
         '/api-verificape': {
           target: 'https://api.verificape.com',
           changeOrigin: true,
@@ -447,7 +471,7 @@ function figmaLinkedPackageSourcemaps(): Plugin {
         const mapFile = path.resolve(path.dirname(file), url)
         return { map: JSON.parse(fs.readFileSync(mapFile, 'utf8')), mapDir: path.dirname(mapFile) }
       }
-    } catch {}
+    } catch { }
     // Without a usable input map, map every line to itself.
     const mappings = code.split('\n').map((_, i) => (i ? 'AACA' : 'AAAA'))
     const map = { version: 3, sources: [file], sourcesContent: [code], names: [], mappings: mappings.join(';') }
